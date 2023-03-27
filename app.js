@@ -1,5 +1,7 @@
 const container = document.getElementById("container");
-const searchInput = document.getElementById("search");
+const searchBox = document.getElementById("search-box");
+const resetButton = document.getElementById("reset-button");
+
 const pokemonList = [
   "froakie",
   "greninja",
@@ -15,7 +17,6 @@ const pokemonList = [
   "politoed",
 ];
 
-// Fetch data for each Pokemon and create a card
 pokemonList.forEach((pokemon) => {
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then((res) => res.json())
@@ -25,7 +26,6 @@ pokemonList.forEach((pokemon) => {
     });
 });
 
-// Helper function to create a card for a Pokemon
 function createCard(pokemonData) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -76,17 +76,34 @@ function createCard(pokemonData) {
 
   return card;
 }
-searchInput.addEventListener("input", () => {
-  const searchQuery = searchInput.value.toLowerCase();
 
-  // Filter displayed Pokemon based on search query
-  const pokemonCards = container.querySelectorAll(".card");
-  pokemonCards.forEach((card) => {
-    const pokemonName = card.querySelector("h2").textContent.toLowerCase();
-    if (pokemonName.includes(searchQuery)) {
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
+searchBox.addEventListener("input", () => {
+  const filteredList = pokemonList.filter((pokemon) => {
+    return pokemon.includes(searchBox.value.toLowerCase());
+  });
+
+  container.innerHTML = "";
+
+  filteredList.forEach((pokemon) => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+      .then((res) => res.json())
+      .then((pokemonData) => {
+        const card = createCard(pokemonData);
+        container.appendChild(card);
+      });
+  });
+});
+
+resetButton.addEventListener("click", () => {
+  searchBox.value = "";
+  container.innerHTML = "";
+
+  pokemonList.forEach((pokemon) => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+      .then((res) => res.json())
+      .then((pokemonData) => {
+        const card = createCard(pokemonData);
+        container.appendChild(card);
+      });
   });
 });
