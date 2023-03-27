@@ -1,4 +1,5 @@
 const container = document.getElementById("container");
+const searchInput = document.getElementById("search");
 const pokemonList = [
   "froakie",
   "greninja",
@@ -75,3 +76,17 @@ function createCard(pokemonData) {
 
   return card;
 }
+searchInput.addEventListener("input", () => {
+  const searchQuery = searchInput.value.toLowerCase();
+
+  // Filter displayed Pokemon based on search query
+  const pokemonCards = container.querySelectorAll(".card");
+  pokemonCards.forEach((card) => {
+    const pokemonName = card.querySelector("h2").textContent.toLowerCase();
+    if (pokemonName.includes(searchQuery)) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+});
