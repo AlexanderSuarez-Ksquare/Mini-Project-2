@@ -23,9 +23,18 @@
 }
 
 .card h2 {
+  text-decoration: underline;
+  cursor: pointer;
+  color: black;
   margin-top: 10px;
   font-size: 1.5em;
   text-align: center;
+}
+.card h2:first-letter {
+  text-transform: uppercase;
+}
+.card h2:hover {
+  color: blue;
 }
 
 .card p {

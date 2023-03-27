@@ -1,17 +1,17 @@
 const container = document.getElementById("container");
 const pokemonList = [
-  "squirtle",
-  "totodile",
-  "mudkip",
-  "piplup",
-  "oshawott",
   "froakie",
-  "popplio",
-  "sobble",
-  "quaxly",
-  "pikachu",
-  "eevee",
   "greninja",
+  "piplup",
+  "lycanroc-midnight",
+  "umbreon",
+  "aegislash-blade",
+  "manectric",
+  "togekiss",
+  "eevee",
+  "rayquaza",
+  "zorua-hisui",
+  "politoed",
 ];
 
 // Fetch data for each Pokemon and create a card
@@ -31,6 +31,12 @@ function createCard(pokemonData) {
 
   const name = document.createElement("h2");
   name.textContent = pokemonData.name;
+
+  name.addEventListener("click", () => {
+    const pokemonName = pokemonData.name.toLowerCase();
+    const wikiUrl = `https://pokemon.fandom.com/wiki/${pokemonName}`;
+    window.open(wikiUrl, "_blank");
+  });
 
   const image = document.createElement("img");
   image.src = pokemonData.sprites.front_shiny;
